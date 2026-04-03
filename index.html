@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愛菲爾中科店-完工好評領取</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .copy-box { background: #fff9e6; border: 1px dashed #ffcc00; padding: 15px; margin: 15px 0; border-radius: 8px; cursor: pointer; position: relative; }
+        .copy-box:active { background: #ffe680; }
+        .btn { display: block; background: #e60012; color: white; padding: 15px; text-decoration: none; border-radius: 30px; font-weight: bold; margin-top: 20px; }
+        .hint { font-size: 12px; color: #888; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🎉 恭喜新家圓滿完工</h2>
+    <img src="你的照片網址.jpg" alt="完工照">
+    
+    <p>請點擊下方文案即可<b>自動複製</b>：</p>
+
+    <div class="copy-box" onclick="copyText('這次在愛菲爾中科店做的系統櫃收納真的救了我的客廳！質感超棒，大推設計師的專業規劃。')">
+        這次在愛菲爾中科店做的系統櫃收納真的救了我的客廳！質感超棒，大推設計師的專業規劃。<br>
+        <span class="hint">(點擊複製)</span>
+    </div>
+
+    <div class="copy-box" onclick="copyText('很放心的裝修體驗！中科店工期控管精準，施工現場整潔，愛菲爾的品質與售後服務讓人很安心。')">
+        很放心的裝修體驗！中科店工期控管精準，施工現場整潔，愛菲爾的品質與售後服務讓人很安心。<br>
+        <span class="hint">(點擊複製)</span>
+    </div>
+
+    <a href="https://g.page/r/CW0POE-0us90EBM/review" class="btn">👉 前往 Google 貼上好評</a>
+</div>
+
+<script>
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("文案已複製！請前往 Google 貼上即可。");
+        });
+    }
+</script>
+
+</body>
+</html>
