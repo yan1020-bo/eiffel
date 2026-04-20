@@ -28,27 +28,33 @@
     
     <p style="color:#666; font-size:14px;">感謝您選擇愛菲爾中科店，為您準備了專屬回饋</p>
 
-    <img src="store.jpg" class="main-img" alt="案場美圖">
-
-<script>
+  <script>
+    // 1. 取得網址列參數 (?f=XXXXXXXX)
     const urlParams = new URLSearchParams(window.location.search);
     const folderId = urlParams.get('f');
+
+    // 2. 抓取網頁上的顯示區塊
     const albumContainer = document.getElementById('album-container');
     const albumHint = document.getElementById('album-hint');
 
-    if (folderId) {
-        albumHint.style.display = 'none';
-        albumContainer.style.display = 'block';
+    // 3. 判斷邏輯
+    if (folderId && folderId.length > 5) { // 確保 ID 存在且不是亂打的
+        // 隱藏原本的「請透過專屬連結進入」提示
+        if(albumHint) albumHint.style.display = 'none';
         
-        // 直接做成一個漂亮的大按鈕，點了才跳轉到 Google Drive
-        albumContainer.innerHTML = `
-            <div style="padding:20px; background:#fff; border:2px solid #4285F4; border-radius:15px; text-align:center;">
-                <p style="font-weight:bold; color:#4285F4;">✅ 您的專屬相簿已準備就緒</p>
-                <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue" style="margin-top:10px;">
-                    📂 點我開啟雲端相簿下載
-                </a>
-            </div>
-        `;
+        // 顯示相簿區塊，並把內容換成一個漂亮的大按鈕
+        if(albumContainer) {
+            albumContainer.style.display = 'block';
+            albumContainer.innerHTML = `
+                <div style="padding: 25px; background: #fff; border: 2px solid #4285F4; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(66,133,244,0.15); margin: 15px 0;">
+                    <p style="font-weight: bold; color: #4285F4; font-size: 18px; margin-bottom: 15px;">📸 您的專屬相簿已準備就緒</p>
+                    <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue" style="display: inline-block; width: 80%; text-decoration: none;">
+                        📂 點我開啟雲端相簿下載
+                    </a>
+                    <p style="font-size: 12px; color: #999; margin-top: 12px;">※ 點擊後將跳轉至 Google Drive 安全下載</p>
+                </div>
+            `;
+        }
     }
 </script>
 
