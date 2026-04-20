@@ -14,7 +14,7 @@
         .copy-box { background: #fffcf0; border: 1.5px dashed #ffcc00; padding: 18px; margin-bottom: 12px; border-radius: 12px; cursor: pointer; text-align: left; font-size: 16px; transition: 0.2s; }
         .copy-box:active { background: #ffeeb3; transform: scale(0.98); }
         .hint { display: block; font-size: 11px; color: #999; margin-top: 8px; text-align: right; }
-        .btn { display: block; padding: 16px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; margin: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; text-align: center; }
+        .btn { display: block; padding: 16px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; margin: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; text-align: center; box-sizing: border-box; }
         .btn-google { background: #e60012; color: white; }
         .btn-line { background: #06C755; color: white; }
         .btn-blue { background: #4285F4; color: white; border: none; width: 100%; cursor: pointer; }
@@ -64,24 +64,23 @@
 </div>
 
 <script>
-    // 1. 處理雲端連結邏輯
+    // 處理雲端連結邏輯
     const urlParams = new URLSearchParams(window.location.search);
     const folderId = urlParams.get('f');
     const dynamicZone = document.getElementById('dynamic-zone');
 
     if (folderId && folderId.length > 5) {
-        // 如果網址有帶 ?f=... 就換成藍色下載按鈕
         dynamicZone.innerHTML = `
-            <div style="padding: 20px; border: 2px solid #4285F4; border-radius: 15px; background: #f0f7ff;">
-                <p style="font-weight:bold; color:#4285F4; margin-bottom:10px;">✅ 您的專屬相簿已準備就緒</p>
-                <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue">
+            <div style="padding: 20px; border: 2px solid #4285F4; border-radius: 15px; background: #f0f7ff; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px 0;">
+                <p style="font-weight:bold; color:#4285F4; margin: 0 0 15px 0; width: 100%; text-align: center;">✅ 您的專屬相簿已準備就緒</p>
+                <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue" style="margin: 0; width: 100%; display: block;">
                     📸 點我下載您的完工美照
                 </a>
             </div>
         `;
     }
 
-    // 2. 複製功能的邏輯
+    // 複製功能的邏輯
     function copyText(text) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).then(function() {
