@@ -30,29 +30,25 @@
 
     <img src="store.jpg" class="main-img" alt="案場美圖">
 
-<div class="section-title">📸 您的專屬完工相簿</div>
-
-<div id="album-container" style="display:none; margin:15px 0;">
-    <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid #eee;">
-        <iframe id="album-iframe" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" frameborder="0"></iframe>
-    </div>
-</div>
-
-<div id="album-hint" style="padding:40px 20px; background:#f9f9f9; border-radius:12px; color:#999; font-size:14px; text-align:center;">
-    請透過簡訊或 LINE 的專屬連結進入<br>即可查看您的完工照片
-</div>
-
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const folderId = urlParams.get('f'); // 我們把參數簡化為 f (folder)
+    const folderId = urlParams.get('f');
+    const albumContainer = document.getElementById('album-container');
+    const albumHint = document.getElementById('album-hint');
 
     if (folderId) {
-        document.getElementById('album-container').style.display = 'block';
-        document.getElementById('album-hint').style.display = 'none';
+        albumHint.style.display = 'none';
+        albumContainer.style.display = 'block';
         
-        // 關鍵：將一般的雲端連結轉化為「內嵌清單模式」
-        // 格式：https://drive.google.com/embeddedfolderview?id=資料夾ID#grid
-        document.getElementById('album-iframe').src = "https://drive.google.com/embeddedfolderview?id=" + folderId + "#grid";
+        // 直接做成一個漂亮的大按鈕，點了才跳轉到 Google Drive
+        albumContainer.innerHTML = `
+            <div style="padding:20px; background:#fff; border:2px solid #4285F4; border-radius:15px; text-align:center;">
+                <p style="font-weight:bold; color:#4285F4;">✅ 您的專屬相簿已準備就緒</p>
+                <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue" style="margin-top:10px;">
+                    📂 點我開啟雲端相簿下載
+                </a>
+            </div>
+        `;
     }
 </script>
 
