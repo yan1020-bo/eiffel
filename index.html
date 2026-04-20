@@ -14,54 +14,32 @@
         .copy-box { background: #fffcf0; border: 1.5px dashed #ffcc00; padding: 18px; margin-bottom: 12px; border-radius: 12px; cursor: pointer; text-align: left; font-size: 16px; transition: 0.2s; }
         .copy-box:active { background: #ffeeb3; transform: scale(0.98); }
         .hint { display: block; font-size: 11px; color: #999; margin-top: 8px; text-align: right; }
-        .btn { display: block; padding: 16px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; margin: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+        .btn { display: block; padding: 16px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; margin: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; text-align: center; }
         .btn-google { background: #e60012; color: white; }
         .btn-line { background: #06C755; color: white; }
-        .btn-blue { background: #4285F4; color: white; }
+        .btn-blue { background: #4285F4; color: white; border: none; width: 100%; cursor: pointer; }
         .btn:active { transform: translateY(2px); }
+        #album-hint { padding: 30px 15px; background: #f9f9f9; border-radius: 12px; color: #999; font-size: 14px; margin: 15px 0; border: 1px dashed #ddd; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>🎊 恭喜新家圓滿完工</h2>
-    
     <p style="color:#666; font-size:14px;">感謝您選擇愛菲爾中科店，為您準備了專屬回饋</p>
 
-  <script>
-    // 1. 取得網址列參數 (?f=XXXXXXXX)
-    const urlParams = new URLSearchParams(window.location.search);
-    const folderId = urlParams.get('f');
+    <img src="store.jpg" class="main-img" alt="案場美圖">
 
-    // 2. 抓取網頁上的顯示區塊
-    const albumContainer = document.getElementById('album-container');
-    const albumHint = document.getElementById('album-hint');
-
-    // 3. 判斷邏輯
-    if (folderId && folderId.length > 5) { // 確保 ID 存在且不是亂打的
-        // 隱藏原本的「請透過專屬連結進入」提示
-        if(albumHint) albumHint.style.display = 'none';
-        
-        // 顯示相簿區塊，並把內容換成一個漂亮的大按鈕
-        if(albumContainer) {
-            albumContainer.style.display = 'block';
-            albumContainer.innerHTML = `
-                <div style="padding: 25px; background: #fff; border: 2px solid #4285F4; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(66,133,244,0.15); margin: 15px 0;">
-                    <p style="font-weight: bold; color: #4285F4; font-size: 18px; margin-bottom: 15px;">📸 您的專屬相簿已準備就緒</p>
-                    <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue" style="display: inline-block; width: 80%; text-decoration: none;">
-                        📂 點我開啟雲端相簿下載
-                    </a>
-                    <p style="font-size: 12px; color: #999; margin-top: 12px;">※ 點擊後將跳轉至 Google Drive 安全下載</p>
-                </div>
-            `;
-        }
-    }
-</script>
+    <div id="dynamic-zone">
+        <div id="album-hint">
+            📸 專屬完工相簿下載<br>
+            <span style="font-size:12px;">(請透過設計師提供的專屬連結進入)</span>
+        </div>
+    </div>
 
     <p style="font-weight: bold; margin-top: 25px;">👇 點擊下方文案即可自動複製內容：</p>
 
     <div class="section-title">✨ 收納機能推薦</div>
-    
     <div class="copy-box" onclick="copyText('這次在愛菲爾中科店做的系統櫃收納真的救了我的客廳！質感超棒，大推設計師的專業規劃。')">
         這次在愛菲爾中科店做的系統櫃收納真的救了我的客廳！質感超棒，大推設計師的專業規劃。
         <span class="hint">📋 點擊複製文案</span>
@@ -73,7 +51,6 @@
     </div>
 
     <div class="section-title">🎨 設計美感推薦</div>
-
     <div class="copy-box" onclick="copyText('設計師很有耐心聽我的需求，完工後的氛圍完全就是我想要的夢想家，質感真的沒話說。')">
         設計師很有耐心聽我的需求，完工後的氛圍完全就是我想要的夢想家，質感真的沒話說。
         <span class="hint">📋 點擊複製文案</span>
@@ -81,20 +58,36 @@
 
     <a href="https://search.google.com/local/writereview?placeid=ChIJ6ZYvQPoVaTQRljFdaqrD6fs" class="btn btn-google" target="_blank">👉 前往 Google 貼上好評</a>
 
-    <a href="https://line.me/R/ti/p/這裡是你的LINE連結" class="btn btn-line" target="_blank">💬 截圖回傳領取完工禮</a>
+    <a href="https://line.me/R/ti/p/@您的LINE連結" class="btn btn-line" target="_blank">💬 截圖回傳領取完工禮</a>
 
     <p style="font-size: 12px; color: #999; margin-top: 20px;">Eiffel Interior Design - 中科店</p>
 </div>
 
 <script>
-    // 複製功能的邏輯，這部分請不要修改
+    // 1. 處理雲端連結邏輯
+    const urlParams = new URLSearchParams(window.location.search);
+    const folderId = urlParams.get('f');
+    const dynamicZone = document.getElementById('dynamic-zone');
+
+    if (folderId && folderId.length > 5) {
+        // 如果網址有帶 ?f=... 就換成藍色下載按鈕
+        dynamicZone.innerHTML = `
+            <div style="padding: 20px; border: 2px solid #4285F4; border-radius: 15px; background: #f0f7ff;">
+                <p style="font-weight:bold; color:#4285F4; margin-bottom:10px;">✅ 您的專屬相簿已準備就緒</p>
+                <a href="https://drive.google.com/drive/folders/${folderId}" target="_blank" class="btn btn-blue">
+                    📸 點我下載您的完工美照
+                </a>
+            </div>
+        `;
+    }
+
+    // 2. 複製功能的邏輯
     function copyText(text) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).then(function() {
                 alert("✅ 文案已複製成功！\n\n請點擊下方紅按鈕前往 Google 評論，\n直接「貼上」並給予五星好評即可！");
             });
         } else {
-            // 備用方案
             var textArea = document.createElement("textarea");
             textArea.value = text;
             document.body.appendChild(textArea);
