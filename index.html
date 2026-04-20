@@ -30,28 +30,29 @@
 
     <img src="store.jpg" class="main-img" alt="案場美圖">
 
- <div class="section-title">📸 您的專屬完工相簿</div>
+<div class="section-title">📸 您的專屬完工相簿</div>
 
 <div id="album-container" style="display:none; margin:15px 0;">
-    <iframe id="album-iframe" src="" style="width:100%; height:500px; border:1px solid #eee; border-radius:12px;" frameborder="0"></iframe>
+    <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid #eee;">
+        <iframe id="album-iframe" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" frameborder="0"></iframe>
+    </div>
 </div>
 
-<div id="album-hint" style="padding:40px 20px; background:#f9f9f9; border-radius:12px; color:#999; font-size:14px;">
+<div id="album-hint" style="padding:40px 20px; background:#f9f9f9; border-radius:12px; color:#999; font-size:14px; text-align:center;">
     請透過簡訊或 LINE 的專屬連結進入<br>即可查看您的完工照片
 </div>
 
 <script>
-    // 自動解析網址中的 album 參數
     const urlParams = new URLSearchParams(window.location.search);
-    const albumUrl = urlParams.get('album');
+    const folderId = urlParams.get('f'); // 我們把參數簡化為 f (folder)
 
-    if (albumUrl) {
-        // 如果網址有帶 album 參數，就顯示相簿並隱藏提示
+    if (folderId) {
         document.getElementById('album-container').style.display = 'block';
         document.getElementById('album-hint').style.display = 'none';
         
-        // 處理 Google 相簿連結轉換為內嵌格式
-        document.getElementById('album-iframe').src = albumUrl;
+        // 關鍵：將一般的雲端連結轉化為「內嵌清單模式」
+        // 格式：https://drive.google.com/embeddedfolderview?id=資料夾ID#grid
+        document.getElementById('album-iframe').src = "https://drive.google.com/embeddedfolderview?id=" + folderId + "#grid";
     }
 </script>
 
